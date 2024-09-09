@@ -13,6 +13,7 @@ builder.Services.AddSqlite<GameStoreContext>(connectionString);
 var app = builder.Build();
 
 app.MapGamesEndpoints();
+app.MapGenresEndpoints();
 
 await app.MigrateDbAsync();
 
