@@ -7,10 +7,10 @@ POST http://localhost:5218/games
 Content-Type: application/json
 
 {
-    "name": "Final Fantasy XIV",
-    "genre": "Fighting",
+    "name": "Final Fantasy IV",
+    "genreId": 2,
     "price": 59.99,
-    "releaseDate": "2010-09-30"
+    "releaseDate": "2019-12-30"
 }
 
 PUT http://localhost:5218/games/2

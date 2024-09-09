@@ -1,5 +1,9 @@
 using System;
+using Microsoft.EntityFrameworkCore;
+using store.Data;
 using store.Dtos;
+using store.Entities;
+using store.Mapping;
 
 namespace store.EndPoints;
 
@@ -9,14 +13,14 @@ public static class GamesEndPoints
         new (
             1,
             "Street Fighters",
-            "Fighting", 
+            "Fighting",
             56.87M,
             new DateOnly(2010, 10, 4)
         ),
         new (
             2,
             "Street Fighters II",
-            "Fighting", 
+            "Fighting",
             45.81M,
             new DateOnly(2015, 12, 4)
         )
@@ -28,7 +32,7 @@ public static class GamesEndPoints
         var group = app.MapGroup("games").WithParameterValidation();
         const string GetGameEndpointName = "GetGame";
 
-        group.MapGet("/", ()=>games);
+        group.MapGet("/", () => games);
 
         group.MapGet("/{id}", (int id) =>
         {
@@ -39,28 +43,29 @@ public static class GamesEndPoints
 
 
         // we can add validations seperatly like this or we can it to the group
-        group.MapPost("/", (CreateGameDto newGame)=> {
-            GameDto game = new (
-                games.Count + 1,
-                newGame.Name,
-                newGame.Genre,
-                newGame.Price,
-                newGame.ReleasedDate
-            );
-            games.Add(game);
-            return Results.CreatedAtRoute(GetGameEndpointName, new {id = game.Id}, game);
+        group.MapPost("/", (CreateGameDto newGame, GameStoreContext dbCOntext) =>
+        {
+            Game game = newGame.ToEntity();
+            game.Genre = dbCOntext.Genres.Find(newGame.GenreId);
+            // instead of sending gameDto we can also send game object back to user
+            
+            dbCOntext.Games.Add(game);
+            dbCOntext.SaveChanges();
+            return Results.CreatedAtRoute(GetGameEndpointName, new { id = game.Id }, game.ToDto());
         })
         .WithParameterValidation();
 
 
 
-        group.MapPut("/{id}",(int id, UpdateGameDto updatedGame)=>{
-            int index = games.FindIndex(game => game.Id==id);
-            if(index==-1){
+        group.MapPut("/{id}", (int id, UpdateGameDto updatedGame) =>
+        {
+            int index = games.FindIndex(game => game.Id == id);
+            if (index == -1)
+            {
                 return Results.NotFound();
             }
             games[index] = new GameDto(
-                id, 
+                id,
                 updatedGame.Name,
                 updatedGame.Genre,
                 updatedGame.Price,
@@ -71,8 +76,9 @@ public static class GamesEndPoints
 
 
 
-        group.MapDelete("/{id}", (int id)=> {
-            games.RemoveAll(game=> game.Id==id);
+        group.MapDelete("/{id}", (int id) =>
+        {
+            games.RemoveAll(game => game.Id == id);
             return Results.NoContent();
         });
 
