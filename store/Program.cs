@@ -22,7 +22,12 @@ List<GameDto> games = [
 
 app.MapGet("games", ()=>games);
 
-app.MapGet("games/{id}", (int id)=>games.Find(game=>game.Id==id)).WithName("GetGame");
+app.MapGet("games/{id}", (int id) =>
+{
+    GameDto? game = games.Find(game => game.Id == id);
+    return game is null ? Results.NotFound() : Results.Ok(game);
+})
+.WithName("GetGame");
 
 app.MapPost("games", (CreateGameDto newGame)=> {
     GameDto game = new (
