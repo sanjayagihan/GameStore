@@ -25,7 +25,7 @@ public static class GamesEndPoints
     public static RouteGroupBuilder MapGamesEndpoints(this WebApplication app)
     {
 
-        var group = app.MapGroup("games");
+        var group = app.MapGroup("games").WithParameterValidation();
         const string GetGameEndpointName = "GetGame";
 
         group.MapGet("/", ()=>games);
@@ -38,7 +38,7 @@ public static class GamesEndPoints
         .WithName(GetGameEndpointName);
 
 
-
+        // we can add validations seperatly like this or we can it to the group
         group.MapPost("/", (CreateGameDto newGame)=> {
             GameDto game = new (
                 games.Count + 1,
