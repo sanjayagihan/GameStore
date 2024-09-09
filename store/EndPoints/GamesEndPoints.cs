@@ -9,7 +9,7 @@ namespace store.EndPoints;
 
 public static class GamesEndPoints
 {
-    private static List<GameDto> games = [
+    private static List<GameSummaryDto> games = [
         new (
             1,
             "Street Fighters",
@@ -34,10 +34,10 @@ public static class GamesEndPoints
 
         group.MapGet("/", () => games);
 
-        group.MapGet("/{id}", (int id) =>
+        group.MapGet("/{id}", (int id, GameStoreContext dbContext) =>
         {
-            GameDto? game = games.Find(game => game.Id == id);
-            return game is null ? Results.NotFound() : Results.Ok(game);
+            Game? game = dbContext.Games.Find(id);
+            return game is null ? Results.NotFound() : Results.Ok(game.ToGameDetailsDto());
         })
         .WithName(GetGameEndpointName);
 
@@ -46,12 +46,11 @@ public static class GamesEndPoints
         group.MapPost("/", (CreateGameDto newGame, GameStoreContext dbCOntext) =>
         {
             Game game = newGame.ToEntity();
-            game.Genre = dbCOntext.Genres.Find(newGame.GenreId);
             // instead of sending gameDto we can also send game object back to user
             
             dbCOntext.Games.Add(game);
             dbCOntext.SaveChanges();
-            return Results.CreatedAtRoute(GetGameEndpointName, new { id = game.Id }, game.ToDto());
+            return Results.CreatedAtRoute(GetGameEndpointName, new { id = game.Id }, game.ToGameDetailsDto());
         })
         .WithParameterValidation();
 
@@ -64,7 +63,7 @@ public static class GamesEndPoints
             {
                 return Results.NotFound();
             }
-            games[index] = new GameDto(
+            games[index] = new GameSummaryDto(
                 id,
                 updatedGame.Name,
                 updatedGame.Genre,
