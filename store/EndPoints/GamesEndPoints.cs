@@ -9,23 +9,6 @@ namespace store.EndPoints;
 
 public static class GamesEndPoints
 {
-    private static List<GameSummaryDto> games = [
-        new (
-            1,
-            "Street Fighters",
-            "Fighting",
-            56.87M,
-            new DateOnly(2010, 10, 4)
-        ),
-        new (
-            2,
-            "Street Fighters II",
-            "Fighting",
-            45.81M,
-            new DateOnly(2015, 12, 4)
-        )
-    ];
-
     public static RouteGroupBuilder MapGamesEndpoints(this WebApplication app)
     {
 
