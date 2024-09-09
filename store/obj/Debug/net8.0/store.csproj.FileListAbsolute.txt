@@ -24,3 +24,9 @@ C:\Users\Acer\OneDrive\Desktop\.net\dotnet\store\obj\Debug\net8.0\store.pdb
 C:\Users\Acer\OneDrive\Desktop\.net\dotnet\store\obj\Debug\net8.0\store.genruntimeconfig.cache
 C:\Users\Acer\OneDrive\Desktop\.net\dotnet\store\obj\Debug\net8.0\ref\store.dll
 c:\Users\Acer\OneDrive\Desktop\.net\dotnet\store\obj\Debug\net8.0\store.sourcelink.json
+c:\Users\Acer\OneDrive\Desktop\.net\dotnet\store\bin\Debug\net8.0\Microsoft.OpenApi.dll
+c:\Users\Acer\OneDrive\Desktop\.net\dotnet\store\bin\Debug\net8.0\MinimalApis.Extensions.dll
+c:\Users\Acer\OneDrive\Desktop\.net\dotnet\store\bin\Debug\net8.0\MiniValidation.dll
+c:\Users\Acer\OneDrive\Desktop\.net\dotnet\store\obj\Debug\net8.0\store.csproj.AssemblyReference.cache
+c:\Users\Acer\OneDrive\Desktop\.net\dotnet\store\obj\Debug\net8.0\store.MvcApplicationPartsAssemblyInfo.cs
+c:\Users\Acer\OneDrive\Desktop\.net\dotnet\store\obj\Debug\net8.0\store.csproj.Up2Date

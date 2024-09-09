@@ -49,7 +49,8 @@ public static class GamesEndPoints
             );
             games.Add(game);
             return Results.CreatedAtRoute(GetGameEndpointName, new {id = game.Id}, game);
-        });
+        })
+        .WithParameterValidation();
 
 
 

@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "aHmH6ncsfqA=",
+  "dgSpecHash": "DjkMsHcXWsc=",
   "success": true,
   "projectFilePath": "c:\\Users\\Acer\\OneDrive\\Desktop\\.net\\dotnet\\store\\store.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Acer\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\Acer\\.nuget\\packages\\minimalapis.extensions\\0.11.0\\minimalapis.extensions.0.11.0.nupkg.sha512",
+    "C:\\Users\\Acer\\.nuget\\packages\\minivalidation\\0.8.0\\minivalidation.0.8.0.nupkg.sha512"
+  ],
   "logs": []
 }
